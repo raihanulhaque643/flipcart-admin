@@ -1,19 +1,30 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
+import { signout } from "../../actions/auth.actions";
 
 const Header = () => {
   const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(signout());
+  };
+
   const renderLoggedInLinks = () => {
     return (
       <Nav>
         <li className="nav-item">
-          <span className="nav-link">Signout</span>
+          <span className="nav-link" onClick={logout}>
+            Signout
+          </span>
         </li>
       </Nav>
     );
   };
+
   const renderNonLoggedInLinks = () => {
     return (
       <Nav>
@@ -55,8 +66,7 @@ const Header = () => {
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown> */}
           </Nav>
-            {auth.authenticate ? renderLoggedInLinks() : renderNonLoggedInLinks()}
-
+          {auth.authenticate ? renderLoggedInLinks() : renderNonLoggedInLinks()}
         </Navbar.Collapse>
       </Container>
     </Navbar>
