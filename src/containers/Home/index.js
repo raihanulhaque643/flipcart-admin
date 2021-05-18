@@ -7,19 +7,7 @@ import './style.css';
 const Home = () => {
   return (
     <div>
-      <Layout>
-        <Container fluid>
-          <Row>
-            <Col md={2} className="sidebar">
-              <ul>
-                <li><NavLink to={"/"}>Home</NavLink></li>
-                <li><NavLink to={"/products"}>Products</NavLink></li>
-                <li><NavLink to={"/orders"}>Orders</NavLink></li>
-              </ul>
-            </Col>
-            <Col md={10} style={{marginLeft: 'auto'}} >Container</Col>
-          </Row>
-        </Container>
+      <Layout sidebar>
 
         {/* <Jumbotron style={{margin: '5rem', background: 'white'}} className="text-center">
                     <h1>Welcome to Admin Dashboard</h1>
