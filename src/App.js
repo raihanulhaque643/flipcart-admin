@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import { isUerLoggedIn } from "./actions";
+import { getInitialData, isUerLoggedIn } from "./actions";
 import "./App.css";
 import PrivateRoute from "./components/HOC/PrivateRoute";
 import Category from "./containers/Category";
@@ -20,6 +20,8 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUerLoggedIn());
     }
+    dispatch(getInitialData());
+
   }, []);
 
   return (
