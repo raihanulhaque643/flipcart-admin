@@ -19,6 +19,7 @@ import {
   IoChevronForwardOutline,
 } from "react-icons/io5";
 import UpdateCategoriesModal from "./components/UpdateCategoryModal";
+import AddCategoryModal from "./components/AddCategoryModal";
 
 const Category = () => {
   const category = useSelector((state) => state.category);
@@ -147,43 +148,6 @@ const Category = () => {
     setUpdateCategoryModal(false);
   };
 
-  const renderAddCategoryModal = () => {
-    return (
-      <Modal
-        show={show}
-        handleClose={handleClose}
-        modalTitle={"Add New Category"}
-      >
-        <Input
-          value={categoryName}
-          placeholder={`Category Name`}
-          onChange={(e) => {
-            setCategoryName(e.target.value);
-          }}
-        />
-        <select
-          className="form-control"
-          value={parentCategoryId}
-          onChange={(e) => setParentCategoryId(e.target.value)}
-        >
-          <option>Select Category</option>
-          {createCategoryList(category.categories).map((option) => {
-            return (
-              <option value={option.value} key={option.value}>
-                {option.name}
-              </option>
-            );
-          })}
-        </select>
-        <input
-          type="file"
-          name="categoryImage"
-          onChange={handleCategoryImage}
-        />
-      </Modal>
-    );
-  };
-
   const deleteCategory = () => {
     updateCheckedAndExpandedCategories();
     setDeleteCategoryModal(true);
@@ -241,6 +205,8 @@ const Category = () => {
     );
   };
 
+  const categoryList = createCategoryList(category.categories);
+
   return (
     <Layout sidebar>
       <Container>
@@ -281,16 +247,27 @@ const Category = () => {
           </Col>
         </Row>
       </Container>
-      {renderAddCategoryModal()}
-      <UpdateCategoriesModal 
-      show={updateCategoryModal}
-      handleClose={updateCategoriesForm}
-      modalTitle={"Update Categories"}
-      size="lg"
-      expandedArray={expandedArray}
-      checkedArray={checkedArray}
-      handleCategoryInput={handleCategoryInput}
-      categoryList={createCategoryList(category.categories)}
+      {/* {renderAddCategoryModal()} */}
+      <AddCategoryModal
+        show={show}
+        handleClose={handleClose}
+        modalTitle={"Add new category"}
+        categoryName={categoryName}
+        setCategoryName={setCategoryName}
+        parentCategoryId={parentCategoryId}
+        setParentCategoryId={setParentCategoryId}
+        categoryList={categoryList}
+        handleCategoryImage={handleCategoryImage}
+      />
+      <UpdateCategoriesModal
+        show={updateCategoryModal}
+        handleClose={updateCategoriesForm}
+        modalTitle={"Update Categories"}
+        size="lg"
+        expandedArray={expandedArray}
+        checkedArray={checkedArray}
+        handleCategoryInput={handleCategoryInput}
+        categoryList={categoryList}
       />
       {renderDeleteCategoryModal()}
     </Layout>
