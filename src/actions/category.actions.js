@@ -28,19 +28,23 @@ export const addCategory = (form) => {
     dispatch({
       type: categoryConstants.ADD_NEW_CATEGORY_REQUEST,
     });
-    const res = await axios.post(`/category/create`, form);
-    if (res.status === 201) {
-      dispatch({
-        type: categoryConstants.ADD_NEW_CATEGORY_SUCCESS,
-        payload: { category: res.data.category },
-      });
-    } else {
-      dispatch({
-        type: categoryConstants.ADD_NEW_CATEGORY_FAILURE,
-        payload: res.data.error,
-      });
+    try {
+      const res = await axios.post(`/category/create`, form);
+      if (res.status === 201) {
+        dispatch({
+          type: categoryConstants.ADD_NEW_CATEGORY_SUCCESS,
+          payload: { category: res.data.category },
+        });
+      } else {
+        dispatch({
+          type: categoryConstants.ADD_NEW_CATEGORY_FAILURE,
+          payload: res.data.error,
+        });
+      }
+    } catch (error) {
+      // const {} = error.response;
+      console.log({ error });
     }
-    console.log(res);
   };
 };
 
@@ -62,9 +66,9 @@ export const deleteCategories = (ids) => {
         ids,
       },
     });
-    if(res.status == 204){
+    if (res.status == 204) {
       return true;
-    }else {
+    } else {
       return false;
     }
   };
