@@ -8,7 +8,6 @@ import {
   deleteCategories as deleteCategoriesAction,
 } from "../../actions";
 import Layout from "../../components/Layout";
-import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import CheckboxTree from "react-checkbox-tree";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
@@ -17,9 +16,13 @@ import {
   IoCheckboxSharp,
   IoChevronDownOutline,
   IoChevronForwardOutline,
+  IoAddSharp,
+  IoTrashBin,
+  IoPencilSharp,
 } from "react-icons/io5";
 import UpdateCategoriesModal from "./components/UpdateCategoryModal";
 import AddCategoryModal from "./components/AddCategoryModal";
+import "./style.css";
 
 const Category = () => {
   const category = useSelector((state) => state.category);
@@ -37,11 +40,16 @@ const Category = () => {
 
   const handleClose = () => {
     const form = new FormData();
+
+    // if(categoryName === ""){
+    //   alert('Name is required');
+    //   return
+    // }
+
     form.append("name", categoryName);
     form.append("parentId", parentCategoryId);
     form.append("categoryImage", categoryImage);
     dispatch(addCategory(form));
-
     setCategoryName("");
     setParentCategoryId("");
     setCategoryImage("");
@@ -217,14 +225,25 @@ const Category = () => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <h3>Category</h3>
-              <button onClick={handleShow}>Add</button>
+              <div className="actionBtnContainer">
+                <span>Actions:</span>
+                <button onClick={handleShow}>
+                  <IoAddSharp />
+                  <span>Add</span>
+                </button>
+                <button onClick={() => deleteCategory()}>
+                  <IoTrashBin />
+                  <span>Delete</span>
+                </button>
+                <button onClick={() => updateCategory()}>
+                  <IoPencilSharp />
+                  <span>Edit</span>
+                </button>
+              </div>
             </div>
           </Col>
         </Row>
         <Row>
-          {/* <Col md={12}>
-            <ul>{renderCategories(category.categories)}</ul>
-          </Col> */}
           <CheckboxTree
             nodes={renderCategories(category.categories)}
             checked={checked}
@@ -240,14 +259,7 @@ const Category = () => {
             }}
           />
         </Row>
-        <Row>
-          <Col>
-            <button onClick={() => deleteCategory()}>Delete</button>
-            <button onClick={() => updateCategory()}>Edit</button>
-          </Col>
-        </Row>
       </Container>
-      {/* {renderAddCategoryModal()} */}
       <AddCategoryModal
         show={show}
         handleClose={handleClose}
