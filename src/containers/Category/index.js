@@ -321,12 +321,15 @@ const Category = () => {
       _id: item.value,
     }));
     const idsArray = expandedIdsArray.concat(checkedIdsArray);
-    dispatch(deleteCategoriesAction(idsArray)).then((result) => {
-      if (result) {
-        dispatch(getAllCategory());
-        setDeleteCategoryModal(false);
-      }
-    });
+
+    if (checkedIdsArray.length > 0) {
+      dispatch(deleteCategoriesAction(checkedIdsArray)).then((result) => {
+        if (result) {
+          dispatch(getAllCategory());
+          setDeleteCategoryModal(false);
+        }
+      });
+    }
   };
 
   const renderDeleteCategoryModal = () => {
