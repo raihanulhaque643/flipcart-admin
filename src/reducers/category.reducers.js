@@ -32,7 +32,9 @@ const buildNewCategories = (parentId, categories, category) => {
       };
       myCategories.push({
         ...cat,
-        children: cat.children.length ? [...cat.children, newCategory] : [newCategory]
+        children: cat.children.length
+          ? [...cat.children, newCategory]
+          : [newCategory],
       });
     } else {
       myCategories.push({
@@ -80,6 +82,24 @@ export const categoryReducer = (state = initState, action) => {
       state = {
         ...initState,
       };
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_REQUEST:
+      state = {
+        ...state,
+        loading: true
+      }
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_SUCCESS:
+      state = {
+        ...state,
+        loading: false
+      }
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error
+      }
       break;
   }
 
