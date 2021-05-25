@@ -166,12 +166,8 @@ const Category = () => {
     const idsArray = expandedIdsArray.concat(checkedIdsArray);
 
     if (checkedIdsArray.length > 0) {
-      dispatch(deleteCategoriesAction(checkedIdsArray)).then((result) => {
-        if (result) {
-          dispatch(getAllCategory());
-          setDeleteCategoryModal(false);
-        }
-      });
+      dispatch(deleteCategoriesAction(checkedIdsArray));
+      setDeleteCategoryModal(false);
     }
   };
 
