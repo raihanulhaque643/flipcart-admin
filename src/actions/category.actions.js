@@ -58,7 +58,7 @@ export const updateCategories = (form) => {
       dispatch({ type: categoryConstants.UPDATE_CATEGORIES_SUCCESS });
       dispatch(getAllCategory())
     } else {
-      const { error } = res;
+      const { error } = res.data;
       dispatch({
         type: categoryConstants.UPDATE_CATEGORIES_FAILURE,
         payload: { error }
@@ -81,7 +81,7 @@ export const deleteCategories = (ids) => {
       dispatch({ type: categoryConstants.DELETE_CATEGORIES_SUCCESS });
       dispatch(getAllCategory())
     } else {
-      const { error } = res;
+      const { error } = res.data;
       dispatch({
         type: categoryConstants.DELETE_CATEGORIES_FAILURE,
         payload: { error }

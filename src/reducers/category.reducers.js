@@ -16,6 +16,7 @@ const buildNewCategories = (parentId, categories, category) => {
         _id: category._id,
         name: category.name,
         slug: category.slug,
+        type: category.type,
         children: [],
       },
     ];
@@ -27,6 +28,7 @@ const buildNewCategories = (parentId, categories, category) => {
         _id: category._id,
         name: category.name,
         slug: category.slug,
+        type: category.type,
         parentId: category.parentId,
         children: [],
       };
@@ -99,6 +101,7 @@ export const categoryReducer = (state = initState, action) => {
       state = {
         ...state,
         error: action.payload.error,
+        loading: false
       };
       break;
     case categoryConstants.DELETE_CATEGORIES_REQUEST:
@@ -117,7 +120,10 @@ export const categoryReducer = (state = initState, action) => {
       state = {
         ...state,
         error: action.payload.error,
+        loading: false
       };
+      break;
+    default:
       break;
   }
 

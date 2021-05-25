@@ -23,6 +23,7 @@ import {
 import UpdateCategoriesModal from "./components/UpdateCategoryModal";
 import AddCategoryModal from "./components/AddCategoryModal";
 import "./style.css";
+import { categoryConstants } from "../../actions/constants";
 
 const Category = () => {
   const category = useSelector((state) => state.category);
@@ -78,6 +79,7 @@ const Category = () => {
         value: category._id,
         name: category.name,
         parentId: category.parentId,
+        type: category.type
       });
       if (category.children.length > 0) {
         createCategoryList(category.children, options);
@@ -139,13 +141,13 @@ const Category = () => {
       form.append("_id", item.value);
       form.append("name", item.name);
       form.append("parentId", item.parentId ? item.parentId : "");
-      form.append("type", item.type);
+      form.append("type", item.type ? item.type : "");
     });
     checkedArray.forEach((item, index) => {
       form.append("_id", item.value);
       form.append("name", item.name);
       form.append("parentId", item.parentId ? item.parentId : "");
-      form.append("type", item.type);
+      form.append("type", item.type ? item.type : "");
     });
     dispatch(updateCategories(form));
     setUpdateCategoryModal(false);
