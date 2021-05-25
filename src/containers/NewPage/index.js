@@ -79,22 +79,20 @@ const NewPage = () => {
 
           <Row>
             <Col>
-              <input
+              <Input
                 type="file"
                 name="banners"
                 onChange={handleBannerImages}
-                style={{marginTop: '5px'}}
               />
             </Col>
           </Row>
 
           <Row>
             <Col>
-              <input
+              <Input
                 type="file"
                 name="products"
                 onChange={handleProductImages}
-                style={{marginTop: '5px'}}
               />
             </Col>
           </Row>
