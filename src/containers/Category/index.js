@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -39,13 +39,19 @@ const Category = () => {
   const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(category.loading){
+      setShow(false);
+    }
+  }, [category.loading])
+
   const handleClose = () => {
     const form = new FormData();
 
-    // if(categoryName === ""){
-    //   alert('Name is required');
-    //   return
-    // }
+    if(categoryName === ""){
+      alert('Name is required');
+      return
+    }
 
     form.append("name", categoryName);
     form.append("parentId", parentCategoryId);
@@ -255,7 +261,8 @@ const Category = () => {
       </Container>
       <AddCategoryModal
         show={show}
-        handleClose={handleClose}
+        handleClose={() => setShow(false)}
+        onSubmit={handleClose}
         modalTitle={"Add new category"}
         categoryName={categoryName}
         setCategoryName={setCategoryName}
