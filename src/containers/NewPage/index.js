@@ -38,7 +38,7 @@ const NewPage = () => {
 
   const onCategoryChange = (e) => {
     const category = categories.find(
-      (category) => category._id == e.target.value
+      (category) => category.value == e.target.value
     );
     setCategoryId(e.target.value);
     setType(category.type);
@@ -86,7 +86,7 @@ const NewPage = () => {
         <Container>
           <Row>
             <Col>
-              <select
+              {/* <select
                 className="form-control"
                 value={categoryId}
                 onChange={onCategoryChange}
@@ -99,7 +99,14 @@ const NewPage = () => {
                     </option>
                   );
                 })}
-              </select>
+              </select> */}
+              <Input 
+              type="select"
+              value={categoryId}
+              onChange={onCategoryChange}
+              options={categories}
+              placeholder={'Select category'}
+              />
             </Col>
           </Row>
 

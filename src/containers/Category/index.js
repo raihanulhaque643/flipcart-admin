@@ -40,17 +40,17 @@ const Category = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(category.loading){
+    if (category.loading) {
       setShow(false);
     }
-  }, [category.loading])
+  }, [category.loading]);
 
   const handleClose = () => {
     const form = new FormData();
 
-    if(categoryName === ""){
-      alert('Name is required');
-      return
+    if (categoryName === "") {
+      alert("Name is required");
+      return;
     }
 
     form.append("name", categoryName);
@@ -85,7 +85,7 @@ const Category = () => {
         value: category._id,
         name: category.name,
         parentId: category.parentId,
-        type: category.type
+        type: category.type,
       });
       if (category.children.length > 0) {
         createCategoryList(category.children, options);
@@ -156,7 +156,6 @@ const Category = () => {
       form.append("type", item.type ? item.type : "");
     });
     dispatch(updateCategories(form));
-    setUpdateCategoryModal(false);
   };
 
   const deleteCategory = () => {
@@ -273,7 +272,8 @@ const Category = () => {
       />
       <UpdateCategoriesModal
         show={updateCategoryModal}
-        handleClose={updateCategoriesForm}
+        handleClose={() => setUpdateCategoryModal(false)}
+        onSubmit={updateCategoriesForm}
         modalTitle={"Update Categories"}
         size="lg"
         expandedArray={expandedArray}
